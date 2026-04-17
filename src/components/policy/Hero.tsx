@@ -1,5 +1,6 @@
 import { useEffect, useRef } from "react";
 import ggNuclearWar from "@/assets/gg-nuclear-war.jpg";
+import poorhouseImg from "@/assets/poorhouse.jpg";
 
 type Tile = {
   style: React.CSSProperties;
@@ -17,6 +18,8 @@ const tiles: Tile[] = [
     style: { left: "-4%", top: "10%", width: "max(220px, 21vw)", height: "max(158px, 15vw)" },
     fanX: 0, fanY: -180, rot: 0, depth: 0.6,
     gradient: "bg-gradient-archive",
+    image: poorhouseImg,
+    alt: "County poorhouse ward, c. 1890s",
   },
   {
     style: { left: "-8%", top: "42%", width: "max(195px, 18vw)", height: "max(255px, 24vw)" },

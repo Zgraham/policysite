@@ -1,4 +1,5 @@
 import { useEffect, useRef, useState } from "react";
+import poorhouseImg from "@/assets/poorhouse.jpg";
 
 type PolicyCard = {
   year: string;
@@ -7,22 +8,27 @@ type PolicyCard = {
   title: string;
   summary: string;
   gradient: string;
-  /** Shape of the visual affordance — drives the placeholder rendering */
   visualKind: "image" | "chart" | "document";
   visualLabel: string;
+  image?: string;
+  layout?: "split" | "immersive";
+  overlayColor?: string; // used by immersive layout — CSS color for the tint
 };
 
 const cards: PolicyCard[] = [
   {
-    year: "1935",
-    date: "August 14, 1935",
-    era: "Founding Era",
-    title: "The Social Security Act",
+    year: "1760",
+    date: "c. 1760s",
+    era: "Colonial Era",
+    title: "Poorhouses & Almshouses",
     summary:
-      "Roosevelt signs the foundational federal program for old-age insurance and unemployment relief — establishing, for the first time, a national social safety net for American workers.",
+      "Before any federal safety net existed, local governments and churches managed poverty through poorhouses — institutions where the destitute, elderly, and disabled lived and worked in exchange for basic shelter and food.",
     gradient: "bg-gradient-archive",
     visualKind: "image",
-    visualLabel: "Roosevelt at the signing — White House Cabinet Room",
+    visualLabel: "County poorhouse ward, c. 1890s",
+    image: poorhouseImg,
+    layout: "immersive",
+    overlayColor: "68, 38, 20",
   },
   {
     year: "1964",
@@ -159,41 +165,33 @@ const Timeline = () => {
   }, []);
 
   // Wheel / trackpad horizontal navigation.
-  // One continuous gesture = one step. We lock until the user pauses (no wheel
-  // events for QUIET_MS), so a long inertial swipe can't advance multiple cards.
+  // After each step we impose a hard MIN_LOCK_MS cooldown (>= card animation
+  // duration) so inertia can never trigger a second step mid-animation.
+  // After the cooldown we also require STEP_THRESHOLD px of fresh input.
   useEffect(() => {
     const el = carouselRef.current;
     if (!el) return;
 
-    const STEP_THRESHOLD = 12;
-    const QUIET_MS = 450; // long enough for trackpad inertia to fully die out
-    let quietTimer: number | undefined;
+    const STEP_THRESHOLD = 20;
+    const MIN_LOCK_MS = 820; // must exceed the 700ms card animation
+    let lockUntil = 0;
 
     const onWheel = (e: WheelEvent) => {
       const absX = Math.abs(e.deltaX);
       const absY = Math.abs(e.deltaY);
       const dx = e.shiftKey && absX < absY ? e.deltaY : e.deltaX;
 
-      // Accept clearly horizontal gestures, including diagonal trackpad swipes.
       const horizIntent =
         e.shiftKey ||
         absX > 10 ||
         (absX > 4 && absX > absY * 0.45);
 
-      if (!horizIntent) return; // let vertical page scroll pass through
+      if (!horizIntent) return;
 
       e.preventDefault();
 
-      // Reset the "quiet" timer on every wheel tick.
-      window.clearTimeout(quietTimer);
-      quietTimer = window.setTimeout(() => {
-        wheelLockRef.current = false;
-        wheelAccumRef.current = 0;
-      }, QUIET_MS);
-
-      // If we've already stepped during this gesture, swallow further events
-      // until the user pauses.
-      if (wheelLockRef.current) return;
+      // Hard cooldown after a step — swallow all events until it expires.
+      if (Date.now() < lockUntil) return;
 
       wheelAccumRef.current += dx;
 
@@ -201,15 +199,12 @@ const Timeline = () => {
 
       const dir = wheelAccumRef.current > 0 ? 1 : -1;
       wheelAccumRef.current = 0;
-      wheelLockRef.current = true; // released only after the quiet period
+      lockUntil = Date.now() + MIN_LOCK_MS;
       setActive((i) => Math.max(0, Math.min(i + dir, cards.length - 1)));
     };
 
     el.addEventListener("wheel", onWheel, { passive: false });
-    return () => {
-      el.removeEventListener("wheel", onWheel);
-      window.clearTimeout(quietTimer);
-    };
+    return () => el.removeEventListener("wheel", onWheel);
   }, []);
 
   const go = (i: number) => setActive(Math.max(0, Math.min(i, cards.length - 1)));
@@ -220,12 +215,38 @@ const Timeline = () => {
   const sideMargin = 8; // vw — left peek/padding
   const translate = -(active * (cardW + gap)) + sideMargin;
 
+  const activeCard = cards[active];
+  const isImmersiveActive = activeCard.layout === "immersive";
+
   return (
-    <section id="timeline" className="snap-section flex flex-col overflow-hidden py-10 sm:py-12">
+    <section id="timeline" className="snap-section relative flex flex-col overflow-hidden">
+
+      {/* ── Immersive section background — lives on the section, not the card ── */}
+      {cards.map((c, i) =>
+        c.layout === "immersive" && c.image ? (
+          <div
+            key={`bg-${c.year}`}
+            className="pointer-events-none absolute inset-0 z-0 transition-opacity duration-700"
+            style={{ opacity: active === i ? 1 : 0 }}
+            aria-hidden
+          >
+            <img src={c.image} alt="" className="h-full w-full object-cover" draggable={false} />
+            <div
+              className="absolute inset-0"
+              style={{
+                background: c.overlayColor
+                  ? `linear-gradient(to right, rgb(${c.overlayColor}) 0%, rgba(${c.overlayColor}, 0.78) 35%, rgba(${c.overlayColor}, 0.38) 62%, rgba(${c.overlayColor}, 0.12) 100%)`
+                  : "linear-gradient(to right, rgba(0,0,0,0.75) 0%, rgba(0,0,0,0) 70%)",
+              }}
+            />
+          </div>
+        ) : null
+      )}
+
       {/* Carousel */}
       <div
         ref={carouselRef}
-        className="relative w-full flex-1 flex items-center touch-pan-y"
+        className="relative z-10 w-full flex-1 flex items-center touch-pan-y"
         role="region"
         aria-roledescription="carousel"
         aria-label="Landmark policies"
@@ -244,28 +265,54 @@ const Timeline = () => {
                 key={c.year}
                 aria-hidden={!isActive}
                 aria-label={`${c.date} — ${c.title}`}
-                className={`flex flex-none overflow-hidden transition-all duration-700 ease-[cubic-bezier(0.25,1,0.5,1)] ${
-                  isActive ? "scale-100 opacity-100" : "scale-[0.88] opacity-30"
-                }`}
-                style={{ width: `${cardW}vw`, height: "52vh" }}
+                className={`relative flex flex-none transition-all duration-700 ease-[cubic-bezier(0.25,1,0.5,1)] ${
+                  c.layout === "immersive" ? "overflow-visible" : "overflow-hidden rounded-sm"
+                } ${isActive ? "scale-100 opacity-100" : "scale-[0.88] opacity-30"}`}
+                style={{ width: `${cardW}vw`, height: "60vh" }}
               >
-                {/* LEFT — editorial content, floats on page bg */}
-                <div className="flex w-full flex-col justify-center py-2 pr-10 sm:pr-14 md:w-[48%]">
-                  <div className="flex flex-col gap-4">
-                    <div className="text-[11px] font-semibold uppercase tracking-[0.28em] text-accent">
-                      {c.date}
+                {c.layout === "immersive" ? (
+                  /* ── IMMERSIVE: text only — image/overlay lives on the section ── */
+                  <div className="flex h-full flex-col justify-center px-10 sm:px-14 md:w-[52%]">
+                    <div className="flex flex-col gap-4">
+                      <div className="text-[11px] font-semibold uppercase tracking-[0.28em] text-white/60">
+                        {c.date}
+                      </div>
+                      <h3 className="font-serif text-[clamp(36px,4.5vw,72px)] font-700 leading-[1.02] tracking-[-0.03em] text-white">
+                        {c.title}
+                      </h3>
+                      <p className="font-serif text-[clamp(15px,1.4vw,22px)] leading-[1.6] text-white/75">
+                        {c.summary}
+                      </p>
                     </div>
-                    <h3 className="font-serif text-[clamp(36px,4.5vw,72px)] font-700 leading-[1.02] tracking-[-0.03em] text-ink">
-                      {c.title}
-                    </h3>
-                    <p className="font-serif text-[clamp(17px,1.5vw,24px)] leading-[1.6] text-ink-soft">
-                      {c.summary}
-                    </p>
                   </div>
-                </div>
-
-                {/* RIGHT — placeholder */}
-                <div className="relative hidden w-[52%] overflow-hidden rounded-sm bg-black md:block" />
+                ) : (
+                  /* ── SPLIT: text left, image right ── */
+                  <>
+                    <div className="flex w-full flex-col justify-center py-2 pr-10 sm:pr-14 md:w-[48%]">
+                      <div className="flex flex-col gap-4">
+                        <div className="text-[11px] font-semibold uppercase tracking-[0.28em] text-accent">
+                          {c.date}
+                        </div>
+                        <h3 className="font-serif text-[clamp(36px,4.5vw,72px)] font-700 leading-[1.02] tracking-[-0.03em] text-ink">
+                          {c.title}
+                        </h3>
+                        <p className="font-serif text-[clamp(17px,1.5vw,24px)] leading-[1.6] text-ink-soft">
+                          {c.summary}
+                        </p>
+                      </div>
+                    </div>
+                    <div className="relative hidden w-[52%] overflow-hidden rounded-sm bg-black md:block">
+                      {c.image && (
+                        <img
+                          src={c.image}
+                          alt={c.visualLabel}
+                          className="h-full w-full object-cover"
+                          draggable={false}
+                        />
+                      )}
+                    </div>
+                  </>
+                )}
               </article>
             );
           })}
@@ -273,12 +320,16 @@ const Timeline = () => {
       </div>
 
       {/* Controls */}
-      <div className="mx-auto flex w-full max-w-7xl items-center gap-3 px-6 sm:px-14">
+      <div className="absolute inset-x-0 z-10 mx-auto flex w-full max-w-7xl items-center gap-3 px-6 sm:px-14" style={{ bottom: 32 }}>
         <button
           onClick={() => go(active - 1)}
           disabled={active === 0}
           aria-label="Previous"
-          className="flex h-11 w-11 items-center justify-center rounded-full border border-rule bg-paper text-ink transition-colors hover:border-ink hover:bg-secondary disabled:opacity-30 disabled:hover:border-rule disabled:hover:bg-paper"
+          className={`flex h-11 w-11 items-center justify-center rounded-full border transition-colors disabled:opacity-30 ${
+            isImmersiveActive
+              ? "border-white/30 bg-white/10 text-white hover:border-white hover:bg-white/20 disabled:hover:border-white/30 disabled:hover:bg-white/10"
+              : "border-rule bg-paper text-ink hover:border-ink hover:bg-secondary disabled:hover:border-rule disabled:hover:bg-paper"
+          }`}
         >
           ←
         </button>
@@ -286,7 +337,11 @@ const Timeline = () => {
           onClick={() => go(active + 1)}
           disabled={active === cards.length - 1}
           aria-label="Next"
-          className="flex h-11 w-11 items-center justify-center rounded-full border border-rule bg-paper text-ink transition-colors hover:border-ink hover:bg-secondary disabled:opacity-30 disabled:hover:border-rule disabled:hover:bg-paper"
+          className={`flex h-11 w-11 items-center justify-center rounded-full border transition-colors disabled:opacity-30 ${
+            isImmersiveActive
+              ? "border-white/30 bg-white/10 text-white hover:border-white hover:bg-white/20 disabled:hover:border-white/30 disabled:hover:bg-white/10"
+              : "border-rule bg-paper text-ink hover:border-ink hover:bg-secondary disabled:hover:border-rule disabled:hover:bg-paper"
+          }`}
         >
           →
         </button>
@@ -297,14 +352,16 @@ const Timeline = () => {
               onClick={() => go(i)}
               aria-label={`Go to card ${i + 1}`}
               className={`h-1.5 rounded-full transition-all ${
-                i === active ? "w-8 bg-accent" : "w-1.5 bg-rule hover:bg-ink/40"
+                i === active
+                  ? `w-8 ${isImmersiveActive ? "bg-white" : "bg-accent"}`
+                  : `w-1.5 ${isImmersiveActive ? "bg-white/30 hover:bg-white/60" : "bg-rule hover:bg-ink/40"}`
               }`}
             />
           ))}
         </div>
-        <span className="ml-auto text-[11px] uppercase tracking-[0.22em] text-ink-soft">
+        <span className={`ml-auto text-[11px] uppercase tracking-[0.22em] ${isImmersiveActive ? "text-white/60" : "text-ink-soft"}`}>
           {String(active + 1).padStart(2, "0")} / {String(cards.length).padStart(2, "0")}
-          <span className="mx-3 text-rule">·</span>
+          <span className={`mx-3 ${isImmersiveActive ? "text-white/30" : "text-rule"}`}>·</span>
           <span className="hidden sm:inline">{cards[active].era}</span>
         </span>
       </div>
