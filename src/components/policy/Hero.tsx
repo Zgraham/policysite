@@ -158,8 +158,6 @@ const Hero = () => {
           <em className="font-medium italic">Social Contract</em>
         </h1>
 
-        <div className="mt-10 h-px w-16 bg-ink/40" aria-hidden />
-
         <p className="mt-10 max-w-xl text-pretty font-serif text-[19px] leading-[1.7] text-ink-soft sm:text-[21px]">
           An exploration of the landmark policies that defined how America
           supports its citizens — from the New Deal to the present day.

@@ -76,8 +76,6 @@ const Summary = () => {
           What it all <em className="font-medium italic">means.</em>
         </h2>
 
-        <div className="mt-8 h-px w-12 bg-ink/40" aria-hidden />
-
         <p className="mt-8 max-w-xl text-pretty font-serif text-[19px] leading-[1.8] text-ink-soft">
           Placeholder — Write 2–3 sentences summarizing the policy's arc and
           its lasting significance. What has changed over these decades? What

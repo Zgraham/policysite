@@ -174,7 +174,7 @@
 
 @layer utilities {
   .font-serif {
-    font-family: Georgia, "Iowan Old Style", "Apple Garamond", "Times New Roman", serif;
+    font-family: "Forum", Georgia, "Times New Roman", serif;
   }
   .font-sans {
     font-family: "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif;

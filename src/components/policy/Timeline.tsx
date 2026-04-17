@@ -235,7 +235,7 @@ const Timeline = () => {
               className="absolute inset-0"
               style={{
                 background: c.overlayColor
-                  ? `linear-gradient(to right, rgb(${c.overlayColor}) 0%, rgba(${c.overlayColor}, 0.78) 35%, rgba(${c.overlayColor}, 0.38) 62%, rgba(${c.overlayColor}, 0.12) 100%)`
+                  ? `linear-gradient(to right, rgba(${c.overlayColor}, 0.95) 0%, rgba(${c.overlayColor}, 0.80) 30%, rgba(${c.overlayColor}, 0.55) 50%, rgba(${c.overlayColor}, 0.30) 65%, rgba(${c.overlayColor}, 0.12) 78%, rgba(${c.overlayColor}, 0.03) 91%, transparent 100%)`
                   : "linear-gradient(to right, rgba(0,0,0,0.75) 0%, rgba(0,0,0,0) 70%)",
               }}
             />
@@ -280,7 +280,7 @@ const Timeline = () => {
                       <h3 className="font-serif text-[clamp(36px,4.5vw,72px)] font-700 leading-[1.02] tracking-[-0.03em] text-white">
                         {c.title}
                       </h3>
-                      <p className="font-serif text-[clamp(15px,1.4vw,22px)] leading-[1.6] text-white/75">
+                      <p className="font-serif text-[clamp(18px,1.6vw,26px)] leading-[1.6] text-white/75">
                         {c.summary}
                       </p>
                     </div>
@@ -296,7 +296,7 @@ const Timeline = () => {
                         <h3 className="font-serif text-[clamp(36px,4.5vw,72px)] font-700 leading-[1.02] tracking-[-0.03em] text-ink">
                           {c.title}
                         </h3>
-                        <p className="font-serif text-[clamp(17px,1.5vw,24px)] leading-[1.6] text-ink-soft">
+                        <p className="font-serif text-[clamp(19px,1.7vw,26px)] leading-[1.6] text-ink-soft">
                           {c.summary}
                         </p>
                       </div>
@@ -359,9 +359,9 @@ const Timeline = () => {
             />
           ))}
         </div>
-        <span className={`ml-auto text-[11px] uppercase tracking-[0.22em] ${isImmersiveActive ? "text-white/60" : "text-ink-soft"}`}>
+        <span className={`ml-auto text-[11px] uppercase tracking-[0.22em] ${isImmersiveActive ? "text-white/90" : "text-ink-soft"}`}>
           {String(active + 1).padStart(2, "0")} / {String(cards.length).padStart(2, "0")}
-          <span className={`mx-3 ${isImmersiveActive ? "text-white/30" : "text-rule"}`}>·</span>
+          <span className={`mx-3 ${isImmersiveActive ? "text-white/50" : "text-rule"}`}>·</span>
           <span className="hidden sm:inline">{cards[active].era}</span>
         </span>
       </div>

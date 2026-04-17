@@ -6,7 +6,7 @@ import Summary from "@/components/policy/Summary";
 import SiteFooter from "@/components/policy/SiteFooter";
 
 const sectionTitles: Record<string, string> = {
-  hero: "Policy.America",
+  hero: "Elder care policy in America",
   timeline: "How it has evolved over time",
   summary: "Summary",
 };
