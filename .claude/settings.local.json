@@ -1,0 +1,28 @@
+{
+  "permissions": {
+    "allow": [
+      "Read(//Users/zachgraham/Downloads/**)",
+      "Bash(unzip -o \"Experience Refinement.zip\" -d \"Experience Refinement\")",
+      "Bash(npm install *)",
+      "mcp__Claude_Preview__preview_start",
+      "Read(//Users/zachgraham/.ssh/**)",
+      "Bash(curl -s -H \"Authorization: token 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\" \"https://api.github.com/repos/Zgraham/policysite/actions/runs?per_page=3\")",
+      "Bash(python3 -c \"import sys,json; runs=json.load\\(sys.stdin\\)['workflow_runs']; [print\\(r['name'], r['status'], r['conclusion'], r['html_url']\\) for r in runs]\")",
+      "Bash(curl -s -H \"Authorization: token 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\" \"https://api.github.com/repos/Zgraham/policysite/actions/runs/24544621200/jobs\")",
+      "Bash(python3 -c \"import sys,json; jobs=json.load\\(sys.stdin\\)['jobs']; [print\\(j['name'], j['conclusion'], '\\\\n'.join\\([s['name']+': '+str\\(s.get\\('conclusion',''\\)\\) for s in j['steps']]\\)\\) for j in jobs]\")",
+      "Bash(curl -s -H \"Authorization: token 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\" \"https://api.github.com/repos/Zgraham/policysite/actions/runs/24544621200/logs\" -L -o /tmp/run_logs.zip)",
+      "Bash(unzip -p /tmp/run_logs.zip \"*build*\")",
+      "Bash(npm run *)",
+      "Bash(curl -s -H \"Authorization: token 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\" \"https://api.github.com/repos/Zgraham/policysite/pages\")",
+      "Bash(curl -s -o /dev/null -w \"%{http_code}\" \"https://zgraham.github.io/policysite/\")",
+      "Bash(curl -s \"https://zgraham.github.io/policysite/\")",
+      "Bash(curl -s -o /dev/null -w \"%{http_code}\" \"https://zgraham.github.io/policysite/assets/index-gFcSW_1k.js\")",
+      "Bash(unzip -o \"Experience Refinement \\(1\\).zip\" -d \"Experience Refinement New\")",
+      "Bash(cp -r \"/Users/zachgraham/Downloads/Experience Refinement New/src/assets\" \"/Users/zachgraham/Downloads/Experience Refinement/src/\")",
+      "Bash(cp '/Users/zachgraham/Downloads/Experience Refinement New/src/__TRACKED_VAR__' '/Users/zachgraham/Downloads/Experience Refinement/src/__TRACKED_VAR__')",
+      "Bash(cp '/Users/zachgraham/Downloads/Experience Refinement New/src/components/policy/__TRACKED_VAR__' '/Users/zachgraham/Downloads/Experience Refinement/src/components/policy/__TRACKED_VAR__')",
+      "Bash(cp \"/Users/zachgraham/Downloads/Experience Refinement New/src/pages/Index.tsx\" \"/Users/zachgraham/Downloads/Experience Refinement/src/pages/Index.tsx\")",
+      "Bash(cp \"/Users/zachgraham/Downloads/Experience Refinement New/src/index.css\" \"/Users/zachgraham/Downloads/Experience Refinement/src/index.css\")"
+    ]
+  }
+}
