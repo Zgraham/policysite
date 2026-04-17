@@ -54,7 +54,23 @@ const Index = () => {
     );
 
     targets.forEach((t) => io.observe(t));
-    return () => { io.disconnect(); sectionIo.disconnect(); };
+
+    // Parallax resist on summary — slides up at 65% speed so it feels
+    // like it's being revealed from behind the timeline, not just scrolling in.
+    const summaryEl = root.querySelector<HTMLElement>("#summary");
+    const onScroll = () => {
+      if (!summaryEl) return;
+      const vh = root.clientHeight;
+      const scrolled = root.scrollTop;
+      const summaryStart = vh * 2; // summary sits at 2×vh in the document
+      const progress = Math.max(0, Math.min((scrolled - vh) / vh, 1)); // 0→1 as scrollTop goes from vh to 2vh
+      // Push summary down slightly during approach, creating a "reveal from behind" feel
+      const resist = (1 - progress) * vh * 0.18;
+      summaryEl.style.transform = `translateY(${resist}px)`;
+    };
+    root.addEventListener("scroll", onScroll, { passive: true });
+
+    return () => { io.disconnect(); sectionIo.disconnect(); root.removeEventListener("scroll", onScroll); };
   }, []);
 
   return (

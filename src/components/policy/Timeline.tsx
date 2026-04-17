@@ -151,7 +151,6 @@ const VisualAffordance = ({ card }: { card: PolicyCard }) => {
 const Timeline = () => {
   const [active, setActive] = useState(0);
   const carouselRef = useRef<HTMLDivElement>(null);
-  const wheelLockRef = useRef(false);
   const wheelAccumRef = useRef(0);
 
   // Keyboard navigation

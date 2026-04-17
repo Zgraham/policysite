@@ -131,7 +131,7 @@ const Hero = () => {
                 "0 2px 8px hsl(30 10% 10% / 0.10), 0 12px 40px hsl(30 10% 10% / 0.14), 0 32px 80px hsl(30 10% 10% / 0.10)",
             }}
           >
-            <div className="relative h-full w-full bg-black">
+            <div className={`relative h-full w-full ${t.gradient}`}>
               {t.image && (
                 <img
                   src={t.image}

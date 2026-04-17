@@ -146,6 +146,29 @@
     height: 100vh;
     height: 100dvh;
     overflow: hidden;
+    position: relative;
+  }
+
+  /* Layered depth — hero is sticky, timeline slides over it, summary sits beneath */
+  #hero {
+    position: sticky;
+    top: 0;
+    z-index: 10;
+  }
+  #timeline {
+    position: relative;
+    z-index: 20;
+    border-radius: 14px 14px 0 0;
+    /* filter shadow bleeds outside overflow:hidden into the hero section above */
+    filter: drop-shadow(0 -8px 24px hsl(30 10% 10% / 0.10))
+            drop-shadow(0 -2px 0px hsl(30 10% 10% / 0.08));
+  }
+  #summary {
+    position: relative;
+    z-index: 15;
+    border-radius: 14px 14px 0 0;
+    filter: drop-shadow(0 -8px 24px hsl(30 10% 10% / 0.08))
+            drop-shadow(0 -2px 0px hsl(30 10% 10% / 0.06));
   }
 
   /* Apple-style fade + lift reveal triggered when the section enters view.
