@@ -250,12 +250,11 @@ const Timeline = () => {
                 style={{ width: `${cardW}vw`, height: "52vh" }}
               >
                 {/* LEFT — editorial content, floats on page bg */}
-                <div className="flex w-full flex-col justify-between py-2 pr-10 sm:pr-14 md:w-[48%]">
-                  <div className="text-[11px] font-semibold uppercase tracking-[0.28em] text-accent">
-                    {c.date}
-                  </div>
-
-                  <div className="flex flex-col gap-8">
+                <div className="flex w-full flex-col justify-center py-2 pr-10 sm:pr-14 md:w-[48%]">
+                  <div className="flex flex-col gap-4">
+                    <div className="text-[11px] font-semibold uppercase tracking-[0.28em] text-accent">
+                      {c.date}
+                    </div>
                     <h3 className="font-serif text-[clamp(36px,4.5vw,72px)] font-700 leading-[1.02] tracking-[-0.03em] text-ink">
                       {c.title}
                     </h3>

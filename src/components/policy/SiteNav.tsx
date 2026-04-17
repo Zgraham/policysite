@@ -24,7 +24,7 @@ const SiteNav = ({ title }: { title: string }) => {
           {displayed}
         </span>
         <span className="text-[11px] font-medium uppercase tracking-[0.18em] text-ink-soft">
-          Vol. I · 2026
+          Tiffany Dougherty-Graham | 2026
         </span>
       </div>
     </nav>

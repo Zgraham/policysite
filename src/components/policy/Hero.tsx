@@ -6,51 +6,43 @@ type Tile = {
   fanX: number;
   fanY: number;
   rot: number;
+  depth: number; // parallax depth: higher = more movement
   gradient: string;
   image?: string;
   alt?: string;
 };
 
 const tiles: Tile[] = [
-  // LEFT — 3 tiles, anchored to the page edge
-  // Left top — landscape
   {
-    style: { left: "-4%", top: "10%", width: "298px", height: "220px" },
-    fanX: -560, fanY: -80, rot: -8,
+    style: { left: "-4%", top: "10%", width: "max(220px, 21vw)", height: "max(158px, 15vw)" },
+    fanX: 0, fanY: -180, rot: 0, depth: 0.6,
     gradient: "bg-gradient-archive",
   },
-  // Left middle — portrait, anchor
   {
-    style: { left: "-8%", top: "42%", width: "254px", height: "340px" },
-    fanX: -680, fanY: 60, rot: -5,
+    style: { left: "-8%", top: "42%", width: "max(195px, 18vw)", height: "max(255px, 24vw)" },
+    fanX: 0, fanY: -240, rot: 0, depth: 0.3,
     gradient: "bg-gradient-civil",
   },
-  // Left bottom — landscape, tucked to corner
   {
-    style: { left: "3%", top: "76%", width: "226px", height: "168px" },
-    fanX: -380, fanY: 160, rot: -14,
+    style: { left: "3%", top: "76%", width: "max(175px, 16vw)", height: "max(130px, 12vw)" },
+    fanX: 0, fanY: 160, rot: 0, depth: 0.8,
     gradient: "bg-gradient-modern",
   },
-
-  // RIGHT — 3 tiles
-  // Right top — landscape
   {
-    style: { right: "-4%", top: "8%", width: "330px", height: "240px" },
-    fanX: 600, fanY: -60, rot: 7,
+    style: { right: "-4%", top: "8%", width: "max(240px, 23vw)", height: "max(175px, 17vw)" },
+    fanX: 0, fanY: -200, rot: 0, depth: 0.5,
     gradient: "bg-gradient-society",
     image: ggNuclearWar,
     alt: "Vintage sitcom still — 'I'm concerned about nuclear war.'",
   },
-  // Right middle — landscape
   {
-    style: { right: "-8%", top: "44%", width: "278px", height: "212px" },
-    fanX: 700, fanY: 80, rot: 4,
+    style: { right: "-8%", top: "44%", width: "max(200px, 19vw)", height: "max(158px, 15vw)" },
+    fanX: 0, fanY: -140, rot: 0, depth: 0.9,
     gradient: "bg-gradient-reform",
   },
-  // Right bottom — landscape, near corner
   {
-    style: { right: "3%", top: "76%", width: "254px", height: "188px" },
-    fanX: 420, fanY: 130, rot: 11,
+    style: { right: "3%", top: "76%", width: "max(195px, 18vw)", height: "max(140px, 13vw)" },
+    fanX: 0, fanY: 120, rot: 0, depth: 0.4,
     gradient: "bg-gradient-archive",
   },
 ];
@@ -65,42 +57,54 @@ const Hero = () => {
     const hero = heroRef.current;
     if (!hero) return;
 
-    // Find the actual scroll container (the .snap-scroller <main>, falling
-    // back to window when this hero is mounted at document level).
-    const scroller =
-      (hero.closest(".snap-scroller") as HTMLElement | null) ?? null;
+    const scroller = (hero.closest(".snap-scroller") as HTMLElement | null) ?? null;
+
+    // Mouse parallax state — lerped each frame
+    const mouse = { tx: 0, ty: 0, cx: 0, cy: 0 };
+    const LERP = 0.06;
+    const MAX_X = 38;
+    const MAX_Y = 24;
+
+    // Scroll progress — lerped so tile exit trails the snap scroll
+    const scroll = { target: 0, current: 0 };
+    const SCROLL_LERP = 0.04;
 
     let raf = 0;
-    const update = () => {
-      raf = 0;
+
+    const loop = () => {
+      raf = requestAnimationFrame(loop);
+
+      mouse.cx += (mouse.tx - mouse.cx) * LERP;
+      mouse.cy += (mouse.ty - mouse.cy) * LERP;
+
       const heroH = hero.offsetHeight || 1;
       const scrolled = scroller ? scroller.scrollTop : window.scrollY;
       const raw = Math.min(Math.max(scrolled / heroH, 0), 1);
-      const p = smoothstep(raw);
+      scroll.target = smoothstep(raw);
+      scroll.current += (scroll.target - scroll.current) * SCROLL_LERP;
+      const p = scroll.current;
 
       tileRefs.current.forEach((el, i) => {
         if (!el) return;
         const t = tiles[i];
-        const tx = t.fanX * p;
-        const ty = t.fanY * p;
-        const r = t.rot + t.rot * 0.35 * p;
-        el.style.transform = `translate3d(${tx}px, ${ty}px, 0) rotate(${r}deg)`;
+        const tx = mouse.cx * t.depth * MAX_X;
+        const ty = t.fanY * p + mouse.cy * t.depth * MAX_Y;
+        el.style.transform = `translate3d(${tx}px, ${ty}px, 0)`;
+        el.style.opacity = String(1 - p * 1.4);
       });
     };
 
-    const onScroll = () => {
-      if (raf) return;
-      raf = requestAnimationFrame(update);
+    const onMouseMove = (e: MouseEvent) => {
+      mouse.tx = (e.clientX / window.innerWidth - 0.5) * 2;
+      mouse.ty = (e.clientY / window.innerHeight - 0.5) * 2;
     };
 
-    update();
-    const target: EventTarget = scroller ?? window;
-    target.addEventListener("scroll", onScroll, { passive: true } as AddEventListenerOptions);
-    window.addEventListener("resize", onScroll);
+    raf = requestAnimationFrame(loop);
+    window.addEventListener("mousemove", onMouseMove, { passive: true });
+
     return () => {
-      target.removeEventListener("scroll", onScroll);
-      window.removeEventListener("resize", onScroll);
-      if (raf) cancelAnimationFrame(raf);
+      cancelAnimationFrame(raf);
+      window.removeEventListener("mousemove", onMouseMove);
     };
   }, []);
 
@@ -119,7 +123,6 @@ const Hero = () => {
             className="collage-tile absolute overflow-hidden"
             style={{
               ...t.style,
-              transition: "transform 120ms linear",
               willChange: "transform",
               boxShadow:
                 "0 2px 8px hsl(30 10% 10% / 0.10), 0 12px 40px hsl(30 10% 10% / 0.14), 0 32px 80px hsl(30 10% 10% / 0.10)",

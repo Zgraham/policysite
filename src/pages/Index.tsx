@@ -64,7 +64,6 @@ const Index = () => {
         <Hero />
         <Timeline />
         <Summary />
-        <SiteFooter />
       </main>
     </div>
   );
