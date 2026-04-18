@@ -19,48 +19,48 @@ type Tile = {
 
 const tiles: Tile[] = [
   {
-    // top-left — partially off edge for depth
-    style: { left: "max(-3vw, -30px)", top: "8%", width: "clamp(200px, 19vw, 300px)", height: "clamp(145px, 14vw, 215px)" },
+    // top-left — pushed inward; above the text so safe to reach toward center
+    style: { left: "7%", top: "7%", width: "clamp(190px, 20vw, 310px)", height: "clamp(140px, 15vw, 225px)" },
     fanX: 0, fanY: -180, rot: 0, depth: 0.6,
     gradient: "bg-gradient-archive",
     image: poorhouseImg,
     alt: "County poorhouse ward, c. 1890s",
   },
   {
-    // mid-left — moved inward to bridge the gap toward the headline
-    style: { left: "4%", top: "40%", width: "clamp(185px, 18vw, 285px)", height: "clamp(240px, 23vw, 360px)" },
+    // mid-left — hugs the edge so it never overlaps the headline
+    style: { left: "max(-2vw, -20px)", top: "40%", width: "clamp(150px, 17vw, 270px)", height: "clamp(95px, 11vw, 175px)" },
     fanX: 0, fanY: -240, rot: 0, depth: 0.3,
     gradient: "bg-gradient-civil",
     image: elderModern,
     alt: "Elder woman with caregiver, modern era",
   },
   {
-    // bottom-left — slight edge bleed
-    style: { left: "1%", top: "74%", width: "clamp(155px, 15vw, 230px)", height: "clamp(115px, 11vw, 170px)" },
+    // bottom-left — pushed inward; below the text so safe to reach toward center
+    style: { left: "7%", top: "73%", width: "clamp(155px, 16vw, 245px)", height: "clamp(115px, 12vw, 180px)" },
     fanX: 0, fanY: 160, rot: 0, depth: 0.8,
     gradient: "bg-gradient-modern",
     image: caregiverBw,
     alt: "Caregiver and elder, c. 1970s",
   },
   {
-    // top-right — partially off edge, mirror of top-left
-    style: { right: "max(-3vw, -30px)", top: "6%", width: "clamp(215px, 20vw, 320px)", height: "clamp(158px, 15vw, 240px)" },
+    // top-right — pushed inward; above the text so safe to reach toward center
+    style: { right: "7%", top: "6%", width: "clamp(200px, 21vw, 325px)", height: "clamp(148px, 16vw, 245px)" },
     fanX: 0, fanY: -200, rot: 0, depth: 0.5,
     gradient: "bg-gradient-society",
     image: ggNuclearWar,
     alt: "Vintage sitcom still — 'I'm concerned about nuclear war.'",
   },
   {
-    // mid-right — moved inward to mirror mid-left
-    style: { right: "4%", top: "42%", width: "clamp(185px, 18vw, 285px)", height: "clamp(145px, 14vw, 215px)" },
+    // mid-right — hugs the edge so it never overlaps the headline
+    style: { right: "max(-2vw, -20px)", top: "42%", width: "clamp(150px, 17vw, 265px)", height: "clamp(115px, 13vw, 205px)" },
     fanX: 0, fanY: -140, rot: 0, depth: 0.9,
     gradient: "bg-gradient-reform",
     image: lbjMedicare,
     alt: "President Johnson signing Medicare, 1965",
   },
   {
-    // bottom-right — slight edge bleed, mirror of bottom-left
-    style: { right: "1%", top: "72%", width: "clamp(170px, 16vw, 255px)", height: "clamp(125px, 12vw, 185px)" },
+    // bottom-right — pushed inward; below the text so safe to reach toward center
+    style: { right: "7%", top: "68%", width: "clamp(220px, 22vw, 340px)", height: "clamp(165px, 16vw, 250px)" },
     fanX: 0, fanY: 120, rot: 0, depth: 0.4,
     gradient: "bg-gradient-archive",
     image: elderCareColor,
