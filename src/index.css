@@ -149,29 +149,9 @@
     position: relative;
   }
 
-  /* Layered depth — all sections are normal flow so snap never skips.
-     Sections cover each other with a fade as they enter. */
-  #hero {
-    position: relative;
-    z-index: 10;
+  /* Solid backgrounds prevent any bleed-through between sections. */
+  #hero, #timeline, #summary {
     background: hsl(var(--paper));
-  }
-  #timeline {
-    position: relative;
-    z-index: 20;
-    background: hsl(var(--paper));
-  }
-  #summary {
-    position: relative;
-    z-index: 30;
-    background: hsl(var(--paper));
-  }
-
-  /* Scroll-driven fade — opacity is set directly by the scroll listener in
-     Index.tsx so it stays perfectly in sync with the snap animation. */
-  #timeline,
-  #summary {
-    opacity: 0;
   }
 
   /* Apple-style fade + lift reveal triggered when the section enters view.

@@ -52,29 +52,7 @@ const Index = () => {
     );
     targets.forEach((t) => io.observe(t));
 
-    // Scroll-driven section fade — opacity tied directly to scroll position so
-    // timeline and summary fade in/out in perfect sync with the snap animation.
-    const timelineEl = root.querySelector<HTMLElement>("#timeline");
-    const summaryEl  = root.querySelector<HTMLElement>("#summary");
-
-    const onScroll = () => {
-      const scrolled = root.scrollTop;
-      const vh = root.clientHeight;
-      // Each section fades in over the second half of its entry scroll range.
-      if (timelineEl) {
-        const t = Math.max(0, Math.min((scrolled - vh * 0.5) / (vh * 0.5), 1));
-        timelineEl.style.opacity = String(t);
-      }
-      if (summaryEl) {
-        const t = Math.max(0, Math.min((scrolled - vh * 1.5) / (vh * 0.5), 1));
-        summaryEl.style.opacity = String(t);
-      }
-    };
-
-    root.addEventListener("scroll", onScroll, { passive: true });
-    onScroll(); // initialise on mount
-
-    return () => { io.disconnect(); sectionIo.disconnect(); root.removeEventListener("scroll", onScroll); };
+    return () => { io.disconnect(); sectionIo.disconnect(); };
   }, []);
 
   return (
