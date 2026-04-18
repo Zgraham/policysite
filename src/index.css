@@ -149,26 +149,29 @@
     position: relative;
   }
 
-  /* Layered depth — hero is sticky, timeline slides over it, summary sits beneath */
+  /* Layered depth — timeline is sticky so summary reveals beneath it as it scrolls away.
+     Hero is normal flow so snap-scrolling back to it works, and it can't bleed through. */
   #hero {
-    position: sticky;
-    top: 0;
+    position: relative;
     z-index: 10;
+    background: hsl(var(--paper));
   }
   #timeline {
-    position: relative;
+    position: sticky;
+    top: 0;
     z-index: 20;
     border-radius: 14px 14px 0 0;
-    /* filter shadow bleeds outside overflow:hidden into the hero section above */
     filter: drop-shadow(0 -8px 24px hsl(30 10% 10% / 0.10))
             drop-shadow(0 -2px 0px hsl(30 10% 10% / 0.08));
+    background: hsl(var(--paper));
   }
   #summary {
     position: relative;
-    z-index: 15;
+    z-index: 30; /* higher than timeline so it rises over the sticky timeline */
     border-radius: 14px 14px 0 0;
     filter: drop-shadow(0 -8px 24px hsl(30 10% 10% / 0.08))
             drop-shadow(0 -2px 0px hsl(30 10% 10% / 0.06));
+    background: hsl(var(--paper));
   }
 
   /* Apple-style fade + lift reveal triggered when the section enters view.
