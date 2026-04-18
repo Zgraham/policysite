@@ -19,42 +19,42 @@ type Tile = {
 
 const tiles: Tile[] = [
   {
-    style: { left: "-4%", top: "10%", width: "max(220px, 21vw)", height: "max(158px, 15vw)" },
+    style: { left: "-4%", top: "10%", width: "clamp(180px, 17vw, 280px)", height: "clamp(130px, 12vw, 200px)" },
     fanX: 0, fanY: -180, rot: 0, depth: 0.6,
     gradient: "bg-gradient-archive",
     image: poorhouseImg,
     alt: "County poorhouse ward, c. 1890s",
   },
   {
-    style: { left: "-8%", top: "42%", width: "max(195px, 18vw)", height: "max(255px, 24vw)" },
+    style: { left: "-8%", top: "42%", width: "clamp(160px, 15vw, 240px)", height: "clamp(210px, 20vw, 320px)" },
     fanX: 0, fanY: -240, rot: 0, depth: 0.3,
     gradient: "bg-gradient-civil",
     image: elderModern,
     alt: "Elder woman with caregiver, modern era",
   },
   {
-    style: { left: "3%", top: "76%", width: "max(175px, 16vw)", height: "max(130px, 12vw)" },
+    style: { left: "3%", top: "76%", width: "clamp(150px, 13vw, 210px)", height: "clamp(110px, 10vw, 165px)" },
     fanX: 0, fanY: 160, rot: 0, depth: 0.8,
     gradient: "bg-gradient-modern",
     image: caregiverBw,
     alt: "Caregiver and elder, c. 1970s",
   },
   {
-    style: { right: "-4%", top: "8%", width: "max(240px, 23vw)", height: "max(175px, 17vw)" },
+    style: { right: "-4%", top: "8%", width: "clamp(195px, 18vw, 300px)", height: "clamp(145px, 14vw, 225px)" },
     fanX: 0, fanY: -200, rot: 0, depth: 0.5,
     gradient: "bg-gradient-society",
     image: ggNuclearWar,
     alt: "Vintage sitcom still — 'I'm concerned about nuclear war.'",
   },
   {
-    style: { right: "-8%", top: "44%", width: "max(200px, 19vw)", height: "max(158px, 15vw)" },
+    style: { right: "-8%", top: "44%", width: "clamp(165px, 16vw, 255px)", height: "clamp(130px, 12vw, 200px)" },
     fanX: 0, fanY: -140, rot: 0, depth: 0.9,
     gradient: "bg-gradient-reform",
     image: lbjMedicare,
     alt: "President Johnson signing Medicare, 1965",
   },
   {
-    style: { right: "3%", top: "76%", width: "max(195px, 18vw)", height: "max(140px, 13vw)" },
+    style: { right: "3%", top: "76%", width: "clamp(160px, 15vw, 240px)", height: "clamp(115px, 11vw, 175px)" },
     fanX: 0, fanY: 120, rot: 0, depth: 0.4,
     gradient: "bg-gradient-archive",
     image: elderCareColor,
