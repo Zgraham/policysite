@@ -149,29 +149,29 @@
     position: relative;
   }
 
-  /* Layered depth — timeline is sticky so summary reveals beneath it as it scrolls away.
-     Hero is normal flow so snap-scrolling back to it works, and it can't bleed through. */
+  /* Layered depth — all sections are normal flow so snap never skips.
+     Sections cover each other with a fade as they enter. */
   #hero {
     position: relative;
     z-index: 10;
     background: hsl(var(--paper));
   }
   #timeline {
-    position: sticky;
-    top: 0;
+    position: relative;
     z-index: 20;
-    border-radius: 14px 14px 0 0;
-    filter: drop-shadow(0 -8px 24px hsl(30 10% 10% / 0.10))
-            drop-shadow(0 -2px 0px hsl(30 10% 10% / 0.08));
     background: hsl(var(--paper));
   }
   #summary {
     position: relative;
-    z-index: 30; /* higher than timeline so it rises over the sticky timeline */
-    border-radius: 14px 14px 0 0;
-    filter: drop-shadow(0 -8px 24px hsl(30 10% 10% / 0.08))
-            drop-shadow(0 -2px 0px hsl(30 10% 10% / 0.06));
+    z-index: 30;
     background: hsl(var(--paper));
+  }
+
+  /* Scroll-driven fade — opacity is set directly by the scroll listener in
+     Index.tsx so it stays perfectly in sync with the snap animation. */
+  #timeline,
+  #summary {
+    opacity: 0;
   }
 
   /* Apple-style fade + lift reveal triggered when the section enters view.

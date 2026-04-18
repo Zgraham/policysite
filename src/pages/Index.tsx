@@ -22,12 +22,13 @@ const Index = () => {
     if (!root) return;
 
     const sections = Array.from(root.querySelectorAll<HTMLElement>("section[id]"));
+
+    // Nav title — update when a section is more than half in view
     const sectionIo = new IntersectionObserver(
       (entries) => {
         entries.forEach((e) => {
           if (e.intersectionRatio > 0.5) {
-            const id = (e.target as HTMLElement).id;
-            setNavTitle(sectionTitles[id] ?? "Policy.America");
+            setNavTitle(sectionTitles[(e.target as HTMLElement).id] ?? "Policy.America");
           }
         });
       },
@@ -35,40 +36,43 @@ const Index = () => {
     );
     sections.forEach((s) => sectionIo.observe(s));
 
-    const targets = Array.from(
-      root.querySelectorAll<HTMLElement>(".snap-reveal")
-    );
-
+    // snap-reveal — lift + fade for content elements inside each section
+    const targets = Array.from(root.querySelectorAll<HTMLElement>(".snap-reveal"));
     const io = new IntersectionObserver(
       (entries) => {
         entries.forEach((e) => {
           if (e.isIntersecting) {
             (e.target as HTMLElement).dataset.revealed = "true";
           } else {
-            // Re-arm so it animates again next time the section is scrolled to.
             (e.target as HTMLElement).dataset.revealed = "false";
           }
         });
       },
       { root, threshold: 0.35 }
     );
-
     targets.forEach((t) => io.observe(t));
 
-    // Parallax resist on summary — slides up at 65% speed so it feels
-    // like it's being revealed from behind the timeline, not just scrolling in.
-    const summaryEl = root.querySelector<HTMLElement>("#summary");
+    // Scroll-driven section fade — opacity tied directly to scroll position so
+    // timeline and summary fade in/out in perfect sync with the snap animation.
+    const timelineEl = root.querySelector<HTMLElement>("#timeline");
+    const summaryEl  = root.querySelector<HTMLElement>("#summary");
+
     const onScroll = () => {
-      if (!summaryEl) return;
-      const vh = root.clientHeight;
       const scrolled = root.scrollTop;
-      const summaryStart = vh * 2; // summary sits at 2×vh in the document
-      const progress = Math.max(0, Math.min((scrolled - vh) / vh, 1)); // 0→1 as scrollTop goes from vh to 2vh
-      // Push summary down slightly during approach, creating a "reveal from behind" feel
-      const resist = (1 - progress) * vh * 0.18;
-      summaryEl.style.transform = `translateY(${resist}px)`;
+      const vh = root.clientHeight;
+      // Each section fades in over the second half of its entry scroll range.
+      if (timelineEl) {
+        const t = Math.max(0, Math.min((scrolled - vh * 0.5) / (vh * 0.5), 1));
+        timelineEl.style.opacity = String(t);
+      }
+      if (summaryEl) {
+        const t = Math.max(0, Math.min((scrolled - vh * 1.5) / (vh * 0.5), 1));
+        summaryEl.style.opacity = String(t);
+      }
     };
+
     root.addEventListener("scroll", onScroll, { passive: true });
+    onScroll(); // initialise on mount
 
     return () => { io.disconnect(); sectionIo.disconnect(); root.removeEventListener("scroll", onScroll); };
   }, []);
