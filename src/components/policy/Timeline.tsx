@@ -28,7 +28,7 @@ const cards: PolicyCard[] = [
     visualLabel: "County poorhouse ward, c. 1890s",
     image: poorhouseImg,
     layout: "immersive",
-    overlayColor: "68, 38, 20",
+    overlayColor: "22, 26, 32",
   },
   {
     year: "1964",
