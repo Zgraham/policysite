@@ -19,46 +19,48 @@ type Tile = {
 
 const tiles: Tile[] = [
   {
-    // top-left — bleed caps at 45px so it doesn't over-hide on wide screens
-    style: { left: "max(-4vw, -45px)", top: "10%", width: "clamp(200px, 19vw, 300px)", height: "clamp(145px, 14vw, 215px)" },
+    // top-left — partially off edge for depth
+    style: { left: "max(-3vw, -30px)", top: "8%", width: "clamp(200px, 19vw, 300px)", height: "clamp(145px, 14vw, 215px)" },
     fanX: 0, fanY: -180, rot: 0, depth: 0.6,
     gradient: "bg-gradient-archive",
     image: poorhouseImg,
     alt: "County poorhouse ward, c. 1890s",
   },
   {
-    // mid-left — was -8% which hid 75%+ on wide viewports; cap bleed at 50px
-    style: { left: "max(-8vw, -50px)", top: "42%", width: "clamp(185px, 18vw, 285px)", height: "clamp(240px, 23vw, 360px)" },
+    // mid-left — moved inward to bridge the gap toward the headline
+    style: { left: "4%", top: "40%", width: "clamp(185px, 18vw, 285px)", height: "clamp(240px, 23vw, 360px)" },
     fanX: 0, fanY: -240, rot: 0, depth: 0.3,
     gradient: "bg-gradient-civil",
     image: elderModern,
     alt: "Elder woman with caregiver, modern era",
   },
   {
-    style: { left: "3%", top: "76%", width: "clamp(155px, 15vw, 230px)", height: "clamp(115px, 11vw, 170px)" },
+    // bottom-left — slight edge bleed
+    style: { left: "1%", top: "74%", width: "clamp(155px, 15vw, 230px)", height: "clamp(115px, 11vw, 170px)" },
     fanX: 0, fanY: 160, rot: 0, depth: 0.8,
     gradient: "bg-gradient-modern",
     image: caregiverBw,
     alt: "Caregiver and elder, c. 1970s",
   },
   {
-    // top-right — mirror of top-left
-    style: { right: "max(-4vw, -45px)", top: "8%", width: "clamp(215px, 20vw, 320px)", height: "clamp(158px, 15vw, 240px)" },
+    // top-right — partially off edge, mirror of top-left
+    style: { right: "max(-3vw, -30px)", top: "6%", width: "clamp(215px, 20vw, 320px)", height: "clamp(158px, 15vw, 240px)" },
     fanX: 0, fanY: -200, rot: 0, depth: 0.5,
     gradient: "bg-gradient-society",
     image: ggNuclearWar,
     alt: "Vintage sitcom still — 'I'm concerned about nuclear war.'",
   },
   {
-    // mid-right — mirror of mid-left
-    style: { right: "max(-8vw, -50px)", top: "44%", width: "clamp(185px, 18vw, 285px)", height: "clamp(145px, 14vw, 215px)" },
+    // mid-right — moved inward to mirror mid-left
+    style: { right: "4%", top: "42%", width: "clamp(185px, 18vw, 285px)", height: "clamp(145px, 14vw, 215px)" },
     fanX: 0, fanY: -140, rot: 0, depth: 0.9,
     gradient: "bg-gradient-reform",
     image: lbjMedicare,
     alt: "President Johnson signing Medicare, 1965",
   },
   {
-    style: { right: "3%", top: "76%", width: "clamp(170px, 16vw, 255px)", height: "clamp(125px, 12vw, 185px)" },
+    // bottom-right — slight edge bleed, mirror of bottom-left
+    style: { right: "1%", top: "72%", width: "clamp(170px, 16vw, 255px)", height: "clamp(125px, 12vw, 185px)" },
     fanX: 0, fanY: 120, rot: 0, depth: 0.4,
     gradient: "bg-gradient-archive",
     image: elderCareColor,
