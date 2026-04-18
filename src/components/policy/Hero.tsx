@@ -1,6 +1,10 @@
 import { useEffect, useRef } from "react";
 import ggNuclearWar from "@/assets/gg-nuclear-war.jpg";
 import poorhouseImg from "@/assets/poorhouse.jpg";
+import elderCareColor from "@/assets/Hero2.jpeg";
+import caregiverBw from "@/assets/Hero3.jpeg";
+import lbjMedicare from "@/assets/Hero4.jpeg";
+import elderModern from "@/assets/her05.jpeg";
 
 type Tile = {
   style: React.CSSProperties;
@@ -25,11 +29,15 @@ const tiles: Tile[] = [
     style: { left: "-8%", top: "42%", width: "max(195px, 18vw)", height: "max(255px, 24vw)" },
     fanX: 0, fanY: -240, rot: 0, depth: 0.3,
     gradient: "bg-gradient-civil",
+    image: caregiverBw,
+    alt: "Caregiver and elder, c. 1970s",
   },
   {
     style: { left: "3%", top: "76%", width: "max(175px, 16vw)", height: "max(130px, 12vw)" },
     fanX: 0, fanY: 160, rot: 0, depth: 0.8,
     gradient: "bg-gradient-modern",
+    image: elderModern,
+    alt: "Elder woman with caregiver, modern era",
   },
   {
     style: { right: "-4%", top: "8%", width: "max(240px, 23vw)", height: "max(175px, 17vw)" },
@@ -42,11 +50,15 @@ const tiles: Tile[] = [
     style: { right: "-8%", top: "44%", width: "max(200px, 19vw)", height: "max(158px, 15vw)" },
     fanX: 0, fanY: -140, rot: 0, depth: 0.9,
     gradient: "bg-gradient-reform",
+    image: lbjMedicare,
+    alt: "President Johnson signing Medicare, 1965",
   },
   {
     style: { right: "3%", top: "76%", width: "max(195px, 18vw)", height: "max(140px, 13vw)" },
     fanX: 0, fanY: 120, rot: 0, depth: 0.4,
     gradient: "bg-gradient-archive",
+    image: elderCareColor,
+    alt: "Elder woman receiving care",
   },
 ];
 
