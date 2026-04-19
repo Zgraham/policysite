@@ -2,6 +2,7 @@ import { useEffect, useRef, useState } from "react";
 import poorhouseImg from "@/assets/poorhouse.jpg";
 import lbjMedicareImg from "@/assets/Hero4.jpeg";
 import ssaActImg from "@/assets/Timeline_02_SSA-act.jpg";
+import ssaNursingImg from "@/assets/Timeline_03_SSA-nursing.jpg";
 
 type PolicyCard = {
   year: string;
@@ -59,8 +60,9 @@ const cards: PolicyCard[] = [
     gradient: "bg-gradient-reform",
     visualKind: "chart",
     visualLabel: "Nursing home growth, 1940 – 1965",
+    image: ssaNursingImg,
     layout: "immersive",
-    overlayColor: "30, 16, 10",
+    overlayColor: "42, 26, 16",
   },
   {
     year: "1965",
