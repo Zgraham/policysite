@@ -8,7 +8,7 @@ import SiteFooter from "@/components/policy/SiteFooter";
 const sectionTitles: Record<string, string> = {
   hero: "Elder care policy in America",
   timeline: "How it has evolved over time",
-  summary: "Summary",
+  summary: "References",
 };
 
 const Index = () => {

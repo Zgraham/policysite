@@ -1,94 +1,53 @@
-import { useEffect, useRef, useState } from "react";
-
-const stats = [
-  { countTo: 90, suffix: "+", prefix: "",  lbl: "Years of federal social policy shaping American life" },
-  { countTo: 65, suffix: "M", prefix: "",  lbl: "Placeholder — Americans currently enrolled or protected" },
-  { countTo: null,             prefix: "$", suffix: "X.XT", lbl: "Placeholder — Annual federal spending on social programs" },
-];
-
-const easeOut = (t: number) => 1 - Math.pow(1 - t, 3);
-const DURATION = 1800;
-
-function useCountUp(target: number | null, triggered: boolean) {
-  const [value, setValue] = useState(0);
-  useEffect(() => {
-    if (!triggered || target === null) return;
-    const start = performance.now();
-    let raf: number;
-    const tick = (now: number) => {
-      const p = Math.min((now - start) / DURATION, 1);
-      setValue(Math.round(easeOut(p) * target));
-      if (p < 1) raf = requestAnimationFrame(tick);
-    };
-    raf = requestAnimationFrame(tick);
-    return () => cancelAnimationFrame(raf);
-  }, [triggered, target]);
-  return value;
-}
-
-const StatItem = ({ stat, triggered, index }: {
-  stat: typeof stats[0];
-  triggered: boolean;
-  index: number;
-}) => {
-  const count = useCountUp(stat.countTo, triggered);
-  const display = stat.countTo !== null
-    ? `${stat.prefix}${count}${stat.suffix}`
-    : `${stat.prefix}${stat.suffix}`;
-
-  return (
-    <div
-      className={`flex flex-col gap-3 px-10 py-12 ${
-        index > 0 ? "border-t border-rule sm:border-l sm:border-t-0" : ""
-      }`}
-    >
-      <span className="font-serif text-[clamp(44px,5vw,68px)] font-800 leading-none tracking-[-0.045em] text-accent">
-        {display}
-      </span>
-      <span className="text-[14px] leading-[1.55] text-ink-soft">{stat.lbl}</span>
-    </div>
-  );
+type Reference = {
+  id: number;
+  citation: string;
+  url?: string;
 };
 
+const references: Reference[] = [
+  { id: 1, citation: "Placeholder reference — add citations here." },
+];
+
 const Summary = () => {
-  const statsRef = useRef<HTMLDivElement>(null);
-  const [triggered, setTriggered] = useState(false);
-
-  useEffect(() => {
-    const el = statsRef.current;
-    if (!el) return;
-    const scroller = el.closest(".snap-scroller");
-    const io = new IntersectionObserver(
-      ([entry]) => { if (entry.isIntersecting) { setTriggered(true); io.disconnect(); } },
-      { root: scroller, threshold: 0.2 }
-    );
-    io.observe(el);
-    return () => io.disconnect();
-  }, []);
-
   return (
-    <section id="summary" className="snap-section relative flex flex-col justify-center bg-background px-6">
-      <div className="mx-auto flex max-w-3xl flex-col items-center text-center">
-        <p className="text-[11px] font-semibold uppercase tracking-[0.32em] text-accent">
-          The Big Picture
-        </p>
-        <h2 className="mt-4 font-serif text-[clamp(34px,5.5vw,64px)] font-700 leading-[1.05] tracking-[-0.025em] text-balance text-ink">
-          What it all <em className="font-medium italic">means.</em>
-        </h2>
-
-        <p className="mt-8 max-w-xl text-pretty font-serif text-[19px] leading-[1.8] text-ink-soft">
-          Placeholder — Write 2–3 sentences summarizing the policy's arc and
-          its lasting significance. What has changed over these decades? What
-          remains contested? What should a reader take away from this history?
-        </p>
+    <section id="summary" className="snap-section relative flex flex-col bg-background">
+      {/* Header */}
+      <div className="rule-bottom px-6 py-10 sm:px-14">
+        <div className="mx-auto max-w-5xl">
+          <p className="text-[11px] font-semibold uppercase tracking-[0.32em] text-accent">
+            Sources
+          </p>
+          <h2 className="mt-3 font-serif text-[clamp(28px,4vw,52px)] font-700 leading-[1.05] tracking-[-0.025em] text-ink">
+            References
+          </h2>
+        </div>
       </div>
 
-      <div ref={statsRef} className="mx-auto mt-20 w-full max-w-5xl">
-        <div className="grid grid-cols-1 sm:grid-cols-3">
-          {stats.map((s, i) => (
-            <StatItem key={s.lbl} stat={s} triggered={triggered} index={i} />
+      {/* Reference list */}
+      <div className="flex-1 overflow-y-auto px-6 py-8 sm:px-14">
+        <ol className="mx-auto max-w-5xl space-y-5">
+          {references.map((ref) => (
+            <li key={ref.id} className="flex gap-6 rule-bottom pb-5">
+              <span className="w-6 flex-none font-sans text-[12px] font-semibold tabular-nums text-accent">
+                {ref.id}
+              </span>
+              <span className="font-serif text-[16px] leading-[1.75] text-ink-soft">
+                {ref.url ? (
+                  <a
+                    href={ref.url}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="underline decoration-rule underline-offset-3 hover:text-ink hover:decoration-ink transition-colors"
+                  >
+                    {ref.citation}
+                  </a>
+                ) : (
+                  ref.citation
+                )}
+              </span>
+            </li>
           ))}
-        </div>
+        </ol>
       </div>
     </section>
   );
