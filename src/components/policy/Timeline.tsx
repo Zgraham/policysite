@@ -451,12 +451,12 @@ const Timeline = () => {
                 title={`${c.year} · ${c.title}`}
                 className="group relative flex h-6 w-6 items-center justify-center"
               >
-                <span className={`block rounded-full transition-transform duration-100 ease-out ${
+                <span className={`block rounded-full transition-all duration-100 ease-out ${
                   i === active
                     ? `h-3 w-3 ${isImmersiveActive ? "bg-white" : "bg-accent"}`
                     : i < active
-                    ? `h-1.5 w-1.5 ${isImmersiveActive ? "bg-white/60" : "bg-ink/40"} group-hover:scale-[2.5]`
-                    : `h-1.5 w-1.5 ${isImmersiveActive ? "bg-white/30" : "bg-rule"} group-hover:scale-[2.5]`
+                    ? `h-1.5 w-1.5 ${isImmersiveActive ? "bg-white/60" : "bg-ink/40"} group-hover:scale-[2.5] group-hover:bg-white`
+                    : `h-1.5 w-1.5 ${isImmersiveActive ? "bg-white/30" : "bg-rule"} group-hover:scale-[2.5] group-hover:bg-white`
                 }`} />
               </button>
             ))}
