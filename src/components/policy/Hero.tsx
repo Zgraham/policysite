@@ -173,7 +173,7 @@ const Hero = () => {
         </h1>
 
         <p className="mt-10 max-w-xl text-pretty font-serif text-[19px] leading-[1.7] text-ink-soft sm:text-[21px]">
-          Long before the government stepped in, the only option for poor older adults with no family to lean on was the almshouse or poorhouse. These were county-run institutions that housed everyone together: the elderly, the sick, the disabled, and orphaned children. The conditions were bad enough that by the late 1800s, the poorhouse had become something people feared more than almost anything else. Dying there was seen as a failure, both for the individual and for the community.
+          An exploration of the landmark policies that defined how America supports its citizens.
         </p>
 
         <a

@@ -22,7 +22,7 @@ const cards: PolicyCard[] = [
     era: "Colonial Era",
     title: "Poorhouses & Almshouses",
     summary:
-      "Before any federal safety net existed, local governments and churches managed poverty through poorhouses — institutions where the destitute, elderly, and disabled lived and worked in exchange for basic shelter and food.",
+      "Long before the government stepped in, the only option for poor older adults with no family to lean on was the almshouse or poorhouse. These were county-run institutions that housed everyone together: the elderly, the sick, the disabled, and orphaned children. The conditions were bad enough that by the late 1800s, the poorhouse had become something people feared more than almost anything else. Dying there was seen as a failure, both for the individual and for the community.",
     gradient: "bg-gradient-archive",
     visualKind: "image",
     visualLabel: "County poorhouse ward, c. 1890s",
