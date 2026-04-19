@@ -1,10 +1,10 @@
 import { useEffect, useRef } from "react";
-import ggNuclearWar from "@/assets/gg-nuclear-war.jpg";
 import poorhouseImg from "@/assets/poorhouse.jpg";
-import elderCareColor from "@/assets/Hero2.jpeg";
-import caregiverBw from "@/assets/Hero3.jpeg";
-import lbjMedicare from "@/assets/Hero4.jpeg";
-import elderModern from "@/assets/her05.jpeg";
+import ssaNursingImg from "@/assets/Timeline_03_SSA-nursing.jpg";
+import oaaImg from "@/assets/Timeline_05.jpg";
+import federalStandardsImg from "@/assets/Timeline_07.jpg";
+import hcbsWaiverImg from "@/assets/Timeline_09.jpg";
+import oregonDwdImg from "@/assets/Timeline_11.jpg";
 
 type Tile = {
   style: React.CSSProperties;
@@ -31,40 +31,40 @@ const tiles: Tile[] = [
     style: { left: "max(-2vw, -20px)", top: "40%", width: "clamp(150px, 17vw, 270px)", height: "clamp(95px, 11vw, 175px)" },
     fanX: 0, fanY: -240, rot: 0, depth: 0.3,
     gradient: "bg-gradient-civil",
-    image: elderModern,
-    alt: "Elder woman with caregiver, modern era",
+    image: oaaImg,
+    alt: "Older Americans Act signing, 1965",
   },
   {
     // bottom-left — pushed inward; below the text so safe to reach toward center
     style: { left: "7%", top: "73%", width: "clamp(155px, 16vw, 245px)", height: "clamp(115px, 12vw, 180px)" },
     fanX: 0, fanY: 160, rot: 0, depth: 0.8,
     gradient: "bg-gradient-modern",
-    image: caregiverBw,
-    alt: "Caregiver and elder, c. 1970s",
+    image: hcbsWaiverImg,
+    alt: "Home and community-based care, 1981",
   },
   {
     // top-right — pushed inward; above the text so safe to reach toward center
     style: { right: "7%", top: "6%", width: "clamp(200px, 21vw, 325px)", height: "clamp(148px, 16vw, 245px)" },
     fanX: 0, fanY: -200, rot: 0, depth: 0.5,
     gradient: "bg-gradient-society",
-    image: ggNuclearWar,
-    alt: "Vintage sitcom still — 'I'm concerned about nuclear war.'",
+    image: ssaNursingImg,
+    alt: "Nursing home, c. 1950s",
   },
   {
     // mid-right — hugs the edge so it never overlaps the headline
     style: { right: "max(-2vw, -20px)", top: "42%", width: "clamp(150px, 17vw, 265px)", height: "clamp(115px, 13vw, 205px)" },
     fanX: 0, fanY: -140, rot: 0, depth: 0.9,
     gradient: "bg-gradient-reform",
-    image: lbjMedicare,
-    alt: "President Johnson signing Medicare, 1965",
+    image: federalStandardsImg,
+    alt: "Federal nursing home standards, 1974",
   },
   {
     // bottom-right — pushed inward; below the text so safe to reach toward center
     style: { right: "7%", top: "68%", width: "clamp(220px, 22vw, 340px)", height: "clamp(165px, 16vw, 250px)" },
     fanX: 0, fanY: 120, rot: 0, depth: 0.4,
     gradient: "bg-gradient-archive",
-    image: elderCareColor,
-    alt: "Elder woman receiving care",
+    image: oregonDwdImg,
+    alt: "Death with Dignity Act rally",
   },
 ];
 

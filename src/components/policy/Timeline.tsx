@@ -3,6 +3,14 @@ import poorhouseImg from "@/assets/poorhouse.jpg";
 import lbjMedicareImg from "@/assets/Timeline_04_medicare-medicaid.jpg";
 import ssaActImg from "@/assets/Timeline_02_SSA-act.jpg";
 import ssaNursingImg from "@/assets/Timeline_03_SSA-nursing.jpg";
+import oaaImg from "@/assets/Timeline_05.jpg";
+import nursingLicenseImg from "@/assets/Timeline_06.jpg";
+import federalStandardsImg from "@/assets/Timeline_07.jpg";
+import oaaAmendmentsImg from "@/assets/Timeline_08.jpg";
+import hcbsWaiverImg from "@/assets/Timeline_09.jpg";
+import obra87Img from "@/assets/Timeline_10.jpg";
+import oregonDwdImg from "@/assets/Timeline_11.jpg";
+import caEolImg from "@/assets/Timeline_12.jpg";
 
 type PolicyCard = {
   year: string;
@@ -40,7 +48,7 @@ const cards: PolicyCard[] = [
     era: "New Deal",
     title: "Social Security Act",
     summary:
-      "Through the Old Age Assistance program, the SSA made federal funding available to states so they could provide direct financial support to low-income seniors. One of the most significant parts of the law was that it prohibited payments to anyone living in a public institution — at the time, that meant the poorhouses. That restriction effectively created the private nursing home industry. Families started moving their elderly parents and grandparents into private facilities so they could still qualify for benefits.",
+      "Through the Old Age Assistance program, the SSA made federal funding available to states so they could provide direct financial support to low-income seniors. One of the most significant parts of the law was that it prohibited payments to anyone living in a public institution. At the time, that meant the poorhouses. That restriction led to the private nursing home industry. Families started moving their elderly parents and grandparents into private facilities so they could still qualify for benefits.",
     source: "Social Security Administration",
     gradient: "bg-gradient-archive",
     visualKind: "document",
@@ -85,13 +93,14 @@ const cards: PolicyCard[] = [
     era: "Great Society",
     title: "Older Americans Act",
     summary:
-      "The OAA set up the Administration on Aging and created a national framework for funding services that help older adults stay healthy and live independently — including meals, transportation, senior centers, benefits enrollment, caregiver support, job training, and health promotion.",
+      "The OAA set up the Administration on Aging inside what was called the Department of Health, Education and Welfare, and created a national framework for funding services that help older adults stay healthy and live independently, including meals, transportation, senior centers, benefits enrollment, caregiver support, job training, and health promotion.",
     source: "NCOA",
     gradient: "bg-gradient-civil",
     visualKind: "document",
     visualLabel: "Public Law 89-73",
+    image: oaaImg,
     layout: "immersive",
-    overlayColor: "14, 20, 36",
+    overlayColor: "18, 18, 20",
   },
   {
     year: "1967",
@@ -104,8 +113,9 @@ const cards: PolicyCard[] = [
     gradient: "bg-gradient-reform",
     visualKind: "document",
     visualLabel: "Social Security Amendments of 1967",
+    image: nursingLicenseImg,
     layout: "immersive",
-    overlayColor: "30, 16, 10",
+    overlayColor: "38, 22, 12",
   },
   {
     year: "1974",
@@ -113,13 +123,14 @@ const cards: PolicyCard[] = [
     era: "Reform Era",
     title: "Federal Standards for Nursing Facilities",
     summary:
-      "Federal regulations for skilled nursing facilities went into effect, setting standards around staffing levels, staff qualifications, fire safety, and delivery of services. Any facility that wanted to participate in Medicare and Medicaid now had to meet these requirements. It was the first time there was a national baseline for what a nursing home was actually supposed to provide.",
+      "Federal regulations for skilled nursing facilities finally went into effect in 1974, setting standards around staffing levels, staff qualifications, fire safety, and delivery of services. Any facility that wanted to participate in Medicare and Medicaid now had to meet these requirements. It was the first time there was a national baseline for what a nursing home was actually supposed to provide.",
     source: "KFF Long-Term Care Timeline",
     gradient: "bg-gradient-archive",
     visualKind: "document",
     visualLabel: "Federal Register, 1974",
+    image: federalStandardsImg,
     layout: "immersive",
-    overlayColor: "22, 18, 14",
+    overlayColor: "26, 28, 30",
   },
   {
     year: "1978",
@@ -132,8 +143,9 @@ const cards: PolicyCard[] = [
     gradient: "bg-gradient-civil",
     visualKind: "document",
     visualLabel: "Comprehensive Older Americans Act Amendments of 1978",
+    image: oaaAmendmentsImg,
     layout: "immersive",
-    overlayColor: "14, 20, 36",
+    overlayColor: "28, 18, 12",
   },
   {
     year: "1981",
@@ -146,8 +158,9 @@ const cards: PolicyCard[] = [
     gradient: "bg-gradient-modern",
     visualKind: "chart",
     visualLabel: "HCBS participation, 1982 – 2000",
+    image: hcbsWaiverImg,
     layout: "immersive",
-    overlayColor: "14, 20, 28",
+    overlayColor: "16, 20, 24",
   },
   {
     year: "1987",
@@ -160,8 +173,9 @@ const cards: PolicyCard[] = [
     gradient: "bg-gradient-reform",
     visualKind: "document",
     visualLabel: "Omnibus Budget Reconciliation Act of 1987",
+    image: obra87Img,
     layout: "immersive",
-    overlayColor: "30, 16, 10",
+    overlayColor: "14, 18, 26",
   },
   {
     year: "1997",
@@ -169,13 +183,14 @@ const cards: PolicyCard[] = [
     era: "End of Life",
     title: "Oregon Death with Dignity Act",
     summary:
-      "Oregon was the first state in the US to legalize physician-assisted dying. That same year, the U.S. Supreme Court decided Washington v. Glucksberg, confirming that while there was no constitutional right to assisted dying, legalizing it was not unconstitutional either. Oregon's law became the template for every Death with Dignity law that followed. To qualify, a person needs a terminal diagnosis with a prognosis of six months or less, must make two separate oral requests, submit a written request, and have two physicians confirm their eligibility.",
+      "Oregon was the first state in the US to legalize physician-assisted dying. That same year, the U.S. Supreme Court decided Washington v. Glucksberg, which addressed whether state laws banning physician-assisted suicide were unconstitutional. The court said they were not, but the ruling also confirmed that legalizing it was not unconstitutional either. Oregon's law became the template for every Death with Dignity law that followed, including California's. To qualify, a person needs a terminal diagnosis with a prognosis of six months or less, must make two separate oral requests with a waiting period in between, submit a written request, and have two physicians confirm their eligibility.",
     source: "AMA Journal of Ethics (2003)",
     gradient: "bg-gradient-modern",
     visualKind: "document",
     visualLabel: "Oregon Revised Statutes 127.800",
+    image: oregonDwdImg,
     layout: "immersive",
-    overlayColor: "14, 20, 28",
+    overlayColor: "18, 18, 20",
   },
   {
     year: "2015",
@@ -183,13 +198,14 @@ const cards: PolicyCard[] = [
     era: "End of Life",
     title: "California End of Life Option Act",
     summary:
-      "California passed the End of Life Option Act to regulate Medical Aid in Dying (MAID). Under this law, a terminally ill California resident who meets all legal requirements can request medication that will end their life. The law first took effect June 9, 2016, and an updated version went into effect January 1, 2022. To be eligible, a person must be at least 18, a California resident, have a terminal illness with a prognosis of six months or less, be capable of making their own medical decisions, and be able to self-administer the medication.",
+      "California passed the End of Life Option Act to regulate Medical Aid in Dying, known as MAID. Under this law, a terminally ill California resident who meets all of the legal requirements can request medication that will end their life. The law first took effect on June 9, 2016, and an updated version went into effect January 1, 2022. To be eligible, a person must be at least 18 years old, a California resident, have a terminal illness with a prognosis of six months or less to live, be capable of making their own medical decisions, and be able to self-administer the medication. The process involves multiple steps including two oral requests, a written request, evaluations by both an attending and a consulting physician, and sometimes a mental health assessment.",
     source: "UC Davis Health; Stanford Health Care",
     gradient: "bg-gradient-society",
     visualKind: "document",
     visualLabel: "California Health & Safety Code § 443",
+    image: caEolImg,
     layout: "immersive",
-    overlayColor: "14, 26, 18",
+    overlayColor: "26, 14, 20",
   },
 ];
 
