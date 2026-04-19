@@ -1,6 +1,6 @@
 import { useEffect, useRef, useState } from "react";
 import poorhouseImg from "@/assets/poorhouse.jpg";
-import lbjMedicareImg from "@/assets/Hero4.jpeg";
+import lbjMedicareImg from "@/assets/Timeline_04_medicare-medicaid.jpg";
 import ssaActImg from "@/assets/Timeline_02_SSA-act.jpg";
 import ssaNursingImg from "@/assets/Timeline_03_SSA-nursing.jpg";
 
@@ -77,7 +77,7 @@ const cards: PolicyCard[] = [
     visualLabel: "President Johnson signing Medicare, 1965",
     image: lbjMedicareImg,
     layout: "immersive",
-    overlayColor: "18, 26, 22",
+    overlayColor: "20, 24, 18",
   },
   {
     year: "1965",
