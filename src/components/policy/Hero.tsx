@@ -171,9 +171,9 @@ const Hero = () => {
         </p>
 
         <h1 className="font-serif text-[clamp(48px,9vw,120px)] font-700 leading-[0.95] tracking-[-0.02em] text-balance text-ink">
-          Shaping the
+          Social Policies on
           <br />
-          <em className="font-medium italic">Social Contract</em>
+          <em className="font-medium italic">Aging & Dying</em>
         </h1>
 
         <p className="mt-10 max-w-xl text-pretty font-serif text-[19px] leading-[1.7] text-ink-soft sm:text-[21px]">
