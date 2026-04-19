@@ -166,10 +166,6 @@ const Hero = () => {
       {/* Hero content */}
       <div className="snap-reveal relative z-10 flex max-w-5xl flex-col items-center">
 
-        <p className="mb-6 text-[11px] font-semibold uppercase tracking-[0.32em] text-accent">
-          A Living History
-        </p>
-
         <h1 className="font-serif text-[clamp(48px,9vw,120px)] font-700 leading-[0.95] tracking-[-0.02em] text-balance text-ink">
           Social Policies on
           <br />
