@@ -173,7 +173,7 @@ const Hero = () => {
         </h1>
 
         <p className="mt-10 max-w-xl text-pretty font-serif text-[19px] leading-[1.7] text-ink-soft sm:text-[21px]">
-          An exploration of the landmark policies that defined how America supports its citizens.
+          An exploration of the landmark policies that defined<br />how America supports its citizens.
         </p>
 
         <a

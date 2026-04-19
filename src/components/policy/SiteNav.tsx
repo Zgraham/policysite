@@ -15,7 +15,7 @@ const SiteNav = ({ title }: { title: string }) => {
   }, [title]);
 
   return (
-    <nav className="fixed inset-x-0 top-0 z-50 h-14 border-b border-rule/50 bg-background/60 backdrop-blur-md backdrop-saturate-150">
+    <nav className="fixed inset-x-0 top-0 z-50 h-14 border-b border-rule/50 bg-background/90 backdrop-blur-md backdrop-saturate-150">
       <div className="mx-auto flex h-full max-w-7xl items-center justify-between px-6">
         <span
           className="font-sans text-[11px] font-medium uppercase tracking-[0.18em] text-ink transition-opacity duration-200"
