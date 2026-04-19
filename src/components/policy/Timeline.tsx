@@ -43,6 +43,8 @@ const cards: PolicyCard[] = [
     gradient: "bg-gradient-archive",
     visualKind: "document",
     visualLabel: "Public Law 74-271",
+    layout: "immersive",
+    overlayColor: "22, 18, 14",
   },
   {
     year: "1950",
@@ -55,6 +57,8 @@ const cards: PolicyCard[] = [
     gradient: "bg-gradient-reform",
     visualKind: "chart",
     visualLabel: "Nursing home growth, 1940 – 1965",
+    layout: "immersive",
+    overlayColor: "30, 16, 10",
   },
   {
     year: "1965",
@@ -82,6 +86,8 @@ const cards: PolicyCard[] = [
     gradient: "bg-gradient-civil",
     visualKind: "document",
     visualLabel: "Public Law 89-73",
+    layout: "immersive",
+    overlayColor: "14, 20, 36",
   },
   {
     year: "1967",
@@ -94,6 +100,8 @@ const cards: PolicyCard[] = [
     gradient: "bg-gradient-reform",
     visualKind: "document",
     visualLabel: "Social Security Amendments of 1967",
+    layout: "immersive",
+    overlayColor: "30, 16, 10",
   },
   {
     year: "1974",
@@ -106,6 +114,8 @@ const cards: PolicyCard[] = [
     gradient: "bg-gradient-archive",
     visualKind: "document",
     visualLabel: "Federal Register, 1974",
+    layout: "immersive",
+    overlayColor: "22, 18, 14",
   },
   {
     year: "1978",
@@ -118,6 +128,8 @@ const cards: PolicyCard[] = [
     gradient: "bg-gradient-civil",
     visualKind: "document",
     visualLabel: "Comprehensive Older Americans Act Amendments of 1978",
+    layout: "immersive",
+    overlayColor: "14, 20, 36",
   },
   {
     year: "1981",
@@ -130,6 +142,8 @@ const cards: PolicyCard[] = [
     gradient: "bg-gradient-modern",
     visualKind: "chart",
     visualLabel: "HCBS participation, 1982 – 2000",
+    layout: "immersive",
+    overlayColor: "14, 20, 28",
   },
   {
     year: "1987",
@@ -142,6 +156,8 @@ const cards: PolicyCard[] = [
     gradient: "bg-gradient-reform",
     visualKind: "document",
     visualLabel: "Omnibus Budget Reconciliation Act of 1987",
+    layout: "immersive",
+    overlayColor: "30, 16, 10",
   },
   {
     year: "1997",
@@ -154,6 +170,8 @@ const cards: PolicyCard[] = [
     gradient: "bg-gradient-modern",
     visualKind: "document",
     visualLabel: "Oregon Revised Statutes 127.800",
+    layout: "immersive",
+    overlayColor: "14, 20, 28",
   },
   {
     year: "2015",
@@ -166,6 +184,8 @@ const cards: PolicyCard[] = [
     gradient: "bg-gradient-society",
     visualKind: "document",
     visualLabel: "California Health & Safety Code § 443",
+    layout: "immersive",
+    overlayColor: "14, 26, 18",
   },
 ];
 
@@ -277,24 +297,30 @@ const Timeline = () => {
   return (
     <section id="timeline" className="snap-section relative flex flex-col overflow-hidden">
 
-      {/* Immersive backgrounds */}
+      {/* Immersive backgrounds — gradient fallback when image not yet set */}
       {cards.map((c, i) =>
-        c.layout === "immersive" && c.image ? (
+        c.layout === "immersive" ? (
           <div
             key={`bg-${i}`}
             className="pointer-events-none absolute inset-0 z-0 transition-opacity duration-700"
             style={{ opacity: active === i ? 1 : 0 }}
             aria-hidden
           >
-            <img src={c.image} alt="" className="h-full w-full object-cover" draggable={false} />
-            <div
-              className="absolute inset-0"
-              style={{
-                background: c.overlayColor
-                  ? `linear-gradient(to right, rgba(${c.overlayColor}, 0.95) 0%, rgba(${c.overlayColor}, 0.80) 30%, rgba(${c.overlayColor}, 0.55) 50%, rgba(${c.overlayColor}, 0.30) 65%, rgba(${c.overlayColor}, 0.12) 78%, rgba(${c.overlayColor}, 0.03) 91%, transparent 100%)`
-                  : "linear-gradient(to right, rgba(0,0,0,0.75) 0%, rgba(0,0,0,0) 70%)",
-              }}
-            />
+            {c.image ? (
+              <>
+                <img src={c.image} alt="" className="h-full w-full object-cover" draggable={false} />
+                <div
+                  className="absolute inset-0"
+                  style={{
+                    background: c.overlayColor
+                      ? `linear-gradient(to right, rgba(${c.overlayColor}, 0.95) 0%, rgba(${c.overlayColor}, 0.80) 30%, rgba(${c.overlayColor}, 0.55) 50%, rgba(${c.overlayColor}, 0.30) 65%, rgba(${c.overlayColor}, 0.12) 78%, rgba(${c.overlayColor}, 0.03) 91%, transparent 100%)`
+                      : "linear-gradient(to right, rgba(0,0,0,0.75) 0%, rgba(0,0,0,0) 70%)",
+                  }}
+                />
+              </>
+            ) : (
+              <div className={`absolute inset-0 ${c.gradient}`} />
+            )}
           </div>
         ) : null
       )}
