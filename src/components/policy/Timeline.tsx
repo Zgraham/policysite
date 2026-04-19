@@ -1,6 +1,7 @@
 import { useEffect, useRef, useState } from "react";
 import poorhouseImg from "@/assets/poorhouse.jpg";
 import lbjMedicareImg from "@/assets/Hero4.jpeg";
+import ssaActImg from "@/assets/Timeline_02_SSA-act.jpg";
 
 type PolicyCard = {
   year: string;
@@ -43,8 +44,9 @@ const cards: PolicyCard[] = [
     gradient: "bg-gradient-archive",
     visualKind: "document",
     visualLabel: "Public Law 74-271",
+    image: ssaActImg,
     layout: "immersive",
-    overlayColor: "22, 18, 14",
+    overlayColor: "18, 18, 20",
   },
   {
     year: "1950",
