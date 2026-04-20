@@ -1,8 +1,9 @@
 import { useEffect, useRef, useState } from "react";
+import { cards as cardData, type PolicyCard } from "@/data/timeline";
 import poorhouseImg from "@/assets/poorhouse.jpg";
-import lbjMedicareImg from "@/assets/Timeline_04_medicare-medicaid.jpg";
 import ssaActImg from "@/assets/Timeline_02_SSA-act.jpg";
 import ssaNursingImg from "@/assets/Timeline_03_SSA-nursing.jpg";
+import lbjMedicareImg from "@/assets/Timeline_04_medicare-medicaid.jpg";
 import oaaImg from "@/assets/Timeline_05.jpg";
 import nursingLicenseImg from "@/assets/Timeline_06.jpg";
 import federalStandardsImg from "@/assets/Timeline_07.jpg";
@@ -12,202 +13,23 @@ import obra87Img from "@/assets/Timeline_10.jpg";
 import oregonDwdImg from "@/assets/Timeline_11.jpg";
 import caEolImg from "@/assets/Timeline_12.jpg";
 
-type PolicyCard = {
-  year: string;
-  date: string;
-  era: string;
-  title: string;
-  summary: string;
-  source?: string;
-  gradient: string;
-  visualKind: "image" | "chart" | "document";
-  visualLabel: string;
-  image?: string;
-  layout?: "split" | "immersive";
-  overlayColor?: string;
-};
-
-const cards: PolicyCard[] = [
-  {
-    year: "1760s",
-    date: "c. 1760s",
-    era: "Colonial Era",
-    title: "Almshouses & Poorhouses",
-    summary:
-      "Long before the government stepped in, the only option for poor older adults with no family to lean on was the almshouse or poorhouse. These were county-run institutions that housed everyone together: the elderly, the sick, the disabled, and orphaned children. The conditions were bad enough that by the late 1800s, the poorhouse had become something people feared more than almost anything else. Dying there was seen as a failure, both for the individual and for the community.",
-    gradient: "bg-gradient-archive",
-    visualKind: "image",
-    visualLabel: "County poorhouse ward, c. 1890s",
-    image: poorhouseImg,
-    layout: "immersive",
-    overlayColor: "18, 18, 20",
-  },
-  {
-    year: "1935",
-    date: "August 14, 1935",
-    era: "New Deal",
-    title: "Social Security Act",
-    summary:
-      "Through the Old Age Assistance program, the SSA made federal funding available to states so they could provide direct financial support to low-income seniors. One of the most significant parts of the law was that it prohibited payments to anyone living in a public institution. At the time, that meant the poorhouses. That restriction led to the private nursing home industry. Families started moving their elderly parents and grandparents into private facilities so they could still qualify for benefits.",
-    source: "Social Security Administration",
-    gradient: "bg-gradient-archive",
-    visualKind: "document",
-    visualLabel: "Public Law 74-271",
-    image: ssaActImg,
-    layout: "immersive",
-    overlayColor: "18, 18, 20",
-  },
-  {
-    year: "1950",
-    date: "August 28, 1950",
-    era: "Postwar Era",
-    title: "Direct Payments to Nursing Homes",
-    summary:
-      "An amendment to the Social Security Act changed how medical care payments were handled, requiring that money go directly to nursing homes rather than to the individuals receiving care. It also made state licensing of nursing homes a condition for participating in the Old Age Assistance program. This pushed the US further toward institutional elder care, essentially making the nursing home the default long-term care setting years before Medicare even existed.",
-    source: "KFF Long-Term Care Timeline",
-    gradient: "bg-gradient-reform",
-    visualKind: "chart",
-    visualLabel: "Nursing home growth, 1940 – 1965",
-    image: ssaNursingImg,
-    layout: "immersive",
-    overlayColor: "42, 26, 16",
-  },
-  {
-    year: "1965",
-    date: "July 30, 1965",
-    era: "Great Society",
-    title: "Medicare & Medicaid",
-    summary:
-      "Medicare covered hospital and medical insurance for adults over 65, and Medicaid extended coverage to people with low incomes. This was the first time that getting older or being poor was no longer a barrier to healthcare. At the time, Medicare was meant for acute care and did not cover long-term care needs. Medicaid required coverage of institutional LTC, which unintentionally reinforced the nursing home as the dominant option for aging adults who needed ongoing support.",
-    source: "CMS History; KFF Long-Term Care Timeline",
-    gradient: "bg-gradient-society",
-    visualKind: "image",
-    visualLabel: "President Johnson signing Medicare, 1965",
-    image: lbjMedicareImg,
-    layout: "immersive",
-    overlayColor: "20, 24, 18",
-  },
-  {
-    year: "1965",
-    date: "July 14, 1965",
-    era: "Great Society",
-    title: "Older Americans Act",
-    summary:
-      "The OAA set up the Administration on Aging inside what was called the Department of Health, Education and Welfare, and created a national framework for funding services that help older adults stay healthy and live independently, including meals, transportation, senior centers, benefits enrollment, caregiver support, job training, and health promotion.",
-    source: "NCOA",
-    gradient: "bg-gradient-civil",
-    visualKind: "document",
-    visualLabel: "Public Law 89-73",
-    image: oaaImg,
-    layout: "immersive",
-    overlayColor: "18, 18, 20",
-  },
-  {
-    year: "1967",
-    date: "1967",
-    era: "Reform Era",
-    title: "Nursing Home Licensing",
-    summary:
-      "By 1967, there was enough public anger about fraud and abuse inside nursing homes that Congress responded with amendments to the Social Security Act requiring states to license nursing home administrators. It was a significant step toward holding an unregulated industry accountable for how it was treating the people in its care.",
-    source: "KFF Long-Term Care Timeline",
-    gradient: "bg-gradient-reform",
-    visualKind: "document",
-    visualLabel: "Social Security Amendments of 1967",
-    image: nursingLicenseImg,
-    layout: "immersive",
-    overlayColor: "38, 22, 12",
-  },
-  {
-    year: "1974",
-    date: "1974",
-    era: "Reform Era",
-    title: "Federal Standards for Nursing Facilities",
-    summary:
-      "Federal regulations for skilled nursing facilities finally went into effect in 1974, setting standards around staffing levels, staff qualifications, fire safety, and delivery of services. Any facility that wanted to participate in Medicare and Medicaid now had to meet these requirements. It was the first time there was a national baseline for what a nursing home was actually supposed to provide.",
-    source: "KFF Long-Term Care Timeline",
-    gradient: "bg-gradient-archive",
-    visualKind: "document",
-    visualLabel: "Federal Register, 1974",
-    image: federalStandardsImg,
-    layout: "immersive",
-    overlayColor: "26, 28, 30",
-  },
-  {
-    year: "1978",
-    date: "1978",
-    era: "Reform Era",
-    title: "OAA Amendments",
-    summary:
-      "The 1978 Comprehensive OAA amendments required every state to establish a nursing home ombudsman program, creating advocacy for residents who could not speak up for themselves. States were also required to start prioritizing community-based alternatives to nursing home placement.",
-    source: "KFF Long-Term Care Timeline",
-    gradient: "bg-gradient-civil",
-    visualKind: "document",
-    visualLabel: "Comprehensive Older Americans Act Amendments of 1978",
-    image: oaaAmendmentsImg,
-    layout: "immersive",
-    overlayColor: "28, 18, 12",
-  },
-  {
-    year: "1981",
-    date: "1981",
-    era: "Reform Era",
-    title: "HCBS Waiver Program",
-    summary:
-      "Section 1915(c) of the Social Security Act created the HCBS Waiver Program, which gave states the flexibility to use Medicaid funding for home and community-based services like personal care, respite care, adult day programs, and home modification. People with long-term care needs no longer had to be placed in a nursing home to get help.",
-    source: "KFF Long-Term Care Timeline; CMS History",
-    gradient: "bg-gradient-modern",
-    visualKind: "chart",
-    visualLabel: "HCBS participation, 1982 – 2000",
-    image: hcbsWaiverImg,
-    layout: "immersive",
-    overlayColor: "16, 20, 24",
-  },
-  {
-    year: "1987",
-    date: "1987",
-    era: "Reform Era",
-    title: "OBRA-87: Nursing Home Reform Act",
-    summary:
-      "OBRA-87 was a direct response to the ongoing problems with abuse, neglect, and poor quality of care in nursing homes. It put quality standards in place for all Medicare and Medicaid-certified facilities. That same year, the reauthorization of the OAA added six new funding areas, including in-home services for frail seniors, long-term care ombudsman programs, and a federal focus on preventing elder abuse, neglect, and exploitation.",
-    source: "KFF Long-Term Care Timeline",
-    gradient: "bg-gradient-reform",
-    visualKind: "document",
-    visualLabel: "Omnibus Budget Reconciliation Act of 1987",
-    image: obra87Img,
-    layout: "immersive",
-    overlayColor: "14, 18, 26",
-  },
-  {
-    year: "1997",
-    date: "1994 / 1997",
-    era: "End of Life",
-    title: "Oregon Death with Dignity Act",
-    summary:
-      "Oregon was the first state in the US to legalize physician-assisted dying. That same year, the U.S. Supreme Court decided Washington v. Glucksberg, which addressed whether state laws banning physician-assisted suicide were unconstitutional. The court said they were not, but the ruling also confirmed that legalizing it was not unconstitutional either. Oregon's law became the template for every Death with Dignity law that followed, including California's. To qualify, a person needs a terminal diagnosis with a prognosis of six months or less, must make two separate oral requests with a waiting period in between, submit a written request, and have two physicians confirm their eligibility.",
-    source: "AMA Journal of Ethics (2003)",
-    gradient: "bg-gradient-modern",
-    visualKind: "document",
-    visualLabel: "Oregon Revised Statutes 127.800",
-    image: oregonDwdImg,
-    layout: "immersive",
-    overlayColor: "18, 18, 20",
-  },
-  {
-    year: "2015",
-    date: "October 5, 2015",
-    era: "End of Life",
-    title: "California End of Life Option Act",
-    summary:
-      "California passed the End of Life Option Act to regulate Medical Aid in Dying, known as MAID. Under this law, a terminally ill California resident who meets all of the legal requirements can request medication that will end their life. The law first took effect on June 9, 2016, and an updated version went into effect January 1, 2022. To be eligible, a person must be at least 18 years old, a California resident, have a terminal illness with a prognosis of six months or less to live, be capable of making their own medical decisions, and be able to self-administer the medication. The process involves multiple steps including two oral requests, a written request, evaluations by both an attending and a consulting physician, and sometimes a mental health assessment.",
-    source: "UC Davis Health; Stanford Health Care",
-    gradient: "bg-gradient-society",
-    visualKind: "document",
-    visualLabel: "California Health & Safety Code § 443",
-    image: caEolImg,
-    layout: "immersive",
-    overlayColor: "26, 14, 20",
-  },
+// Images are kept here so the data file stays plain text — no asset imports needed there.
+const cardImages: (string | undefined)[] = [
+  poorhouseImg,       // 1 — Almshouses
+  ssaActImg,          // 2 — Social Security Act
+  ssaNursingImg,      // 3 — Direct Payments to Nursing Homes
+  lbjMedicareImg,     // 4 — Medicare & Medicaid
+  oaaImg,             // 5 — Older Americans Act
+  nursingLicenseImg,  // 6 — Nursing Home Licensing
+  federalStandardsImg,// 7 — Federal Standards
+  oaaAmendmentsImg,   // 8 — OAA Amendments
+  hcbsWaiverImg,      // 9 — HCBS Waiver
+  obra87Img,          // 10 — OBRA-87
+  oregonDwdImg,       // 11 — Oregon DWD
+  caEolImg,           // 12 — California EOLA
 ];
+
+const cards: PolicyCard[] = cardData.map((c, i) => ({ ...c, image: cardImages[i] }));
 
 /* ─── Visual affordance ───────────────────────────────────────────── */
 
